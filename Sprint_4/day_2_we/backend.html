@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend</title>
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: auto;
+        }
+        input{
+            margin-bottom: 30px;
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        input{
+            border-radius: 10px;
+            border: 2px solid #00BAF2;
+
+        }
+        #submit:hover{
+            background-color: #00BAF2;
+            color: black;
+            cursor: pointer;
+            
+        }
+        #submit{
+            width: 50%;
+            margin: auto;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a href="backend.html">Backend</a>
+        <a href="frontend.html">Frontend</a>
+
+    </div>
+
+    <form id="form">
+        <input id="name" type="text" placeholder="Name">
+        <input id="role" type="text" placeholder="role">
+        <input id="img" type="text" placeholder="imgURL">
+        <input id="logo" type="text" placeholder="logo">
+        <input id="submit" type="submit" Submit>
+    </form>
+    
+</body>
+</html>
+
+<script>
+    var investors = JSON.parse(localStorage.getItem('investors')) || [];
+    var form = document.querySelector('form');
+    var btn = form.addEventListener('submit',function(event){
+        event.preventDefault()
+        var data ={
+           name : form.name.value,
+           img : form.img.value,
+           logo : form.logo.value,
+           role : form.role.value,
+        }
+
+        investors.push(data)
+
+        localStorage.setItem('investors',JSON.stringify(investors));
+
+        // console.log(investors);
+    })
+
+</script>
