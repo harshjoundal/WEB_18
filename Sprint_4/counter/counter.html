@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #display{
+            width: 40%;
+            height: 40px;
+            border: 1px solid black;
+            margin: auto;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1{
+            text-align: center;
+            font-size: 40px;
+        }
+
+        #btn{
+            width: 40%;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        button{
+            font-size: 30px;
+            background-color: red;
+        }
+        button:hover{
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+        h2{
+            font-size: 30px;
+
+        }
+    </style>
+
+
+</head>
+<body>
+    <h1>COUNTER</h1>
+    <div id="display">
+        <h2></h2>
+    </div>
+
+    <div id="btn">
+        <button id="inc">
+            Increase
+        </button>
+        <button id="dnc">
+            Decrease
+        </button>
+    </div>
+</body>
+</html>
+<script>
+    var count = localStorage.getItem('count') || 0;
+    document.querySelector('#display>h2').innerText = count
+    
+    document.querySelector('#inc').addEventListener('click',function(event){
+        count++;
+        document.querySelector('#display>h2').innerText = count;
+        localStorage.setItem('count',count);
+
+    });
+    
+    document.querySelector('#dnc').addEventListener('click',function(event){
+        count-=1;
+        document.querySelector('#display>h2').innerText = count;
+        localStorage.setItem('count',count);
+
+    })
+
+</script>
