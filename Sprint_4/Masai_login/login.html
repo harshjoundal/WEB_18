@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loogin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        img{
+            display: block;
+            margin: auto;
+            margin-top: 40px;
+        }
+        #container{
+            width: 35%;
+            padding: 15px 35px;
+            margin: auto;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;            
+            margin-top: 40px;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+        h1{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            font-size: 24px;
+        }
+        input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid rgb(205, 203, 203);
+            border-radius: 8px;
+       
+        }
+        input::placeholder{
+            color:rgb(205, 203, 203);
+            font-weight: 200;
+        }
+        p{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 6px;
+            margin-top: 30px;
+
+        }
+        #policy{
+            text-align: center;
+            font-size: 13px;
+        }
+        button{
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 30px;
+            border: 1px solid rgb(205, 203, 203);
+            border-radius: 8px;
+
+        }
+        button:hover{
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://sso.masaischool.com/brand_dark.svg" alt="masai">
+
+    <div id="container">
+        <h1>Sign In</h1>
+        <p>Email</p>
+        <input id="email" type="email" placeholder="Enter Email">
+        <p>Password</p>
+        <input id="password" type="password" placeholder="Enter password">
+        <p id="policy">By signing in, I accept the Masai School <a href="https://masaischool.com/terms" target="_blank">Terms of service</a> and acknowledge the <a href="https://masaischool.com/privacy" target="_blank">Privacy policy</a></p>
+
+        <button>SIGN IN</button>
+
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+    var logindata = JSON.parse(localStorage.getItem('login'));
+    
+    document.querySelector('button').addEventListener('click',function(event){
+        var email = document.querySelector('#email').value;
+        var password = document.querySelector('#password').value;
+
+        var success = false;
+        
+        logindata.forEach(function(ele,i){
+            var e = ele.email;
+            var p = ele.password;
+            if(e == email && p == password){
+                success = true;
+            }
+        })
+
+        console.log(success);
+        if(success == true){
+            window.location.href='success.html';
+        }
+        else{
+            alert('Incorrect email or password');
+            window.location.reload()
+        }
+
+    })
+</script>
+
+
