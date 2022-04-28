@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        h1{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            font-size: 50px;
+            text-align: center;
+        }
+
+        #btn{
+            width: 70%;
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+            /* box-sizing: border-box; */
+        }
+        button{
+            font-size: 60px;
+            padding: 30px;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+
+            
+        }
+        button:hover{
+            background-color: black;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Product Page</h1>
+    <div id="btn">
+        <button id="mens">Mens</button>
+        <button id="womens">Women</button>
+    </div>
+</body>
+</html>
+
+<script>
+    const mens = document.querySelector('#mens').addEventListener('click',function(event){
+        window.location.href="mens.html"
+    })
+    const womens = document.querySelector('#womens').addEventListener('click',function(event){
+        window.location.href="womens.html"
+    })
+</script>
