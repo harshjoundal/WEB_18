@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="navbar.css">
     
     <style>
         h1{
@@ -51,7 +52,23 @@
 
 </head>
 <body>
-    <h1>Mens Page</h1>
+  <div id="navbar">
+    <img src="https://content.shop4reebok.com/static/header/vector_logo_white_145x19_website.png" alt="">
+    <div id="buttons">
+        <h3><a href="womens.html">women</a> </h3>
+        <h3><a href="mens.html">Men</a></h3>
+        <h3><a href="\WEB_18\Sprint_4\Masai_login\signup.html">SignUp</a></h3>
+        <h3><a href="\WEB_18\Sprint_4\Masai_login\login.html">LogIn</a></h3>
+        <h3><a href="cart.html">cart</a></h3>
+      </div>
+  </div> 
+  
+  
+  
+  
+  
+  
+  <h1>Mens Page</h1>
 
     <div id="container">
 
@@ -315,7 +332,7 @@
       strikedoffprice: 1799,
     },
   ];
-
+    var cart =JSON.parse(localStorage.getItem('cart')) || [];
     function display(data){       
         data.forEach(function(ele){
             var card = document.createElement('div');
@@ -330,7 +347,7 @@
             var Prprice = document.createElement('div');
             Prprice.className ='Prprice';
             var price = document.createElement('p');
-            price.innerText='$'+ele.price
+            price.innerText=ele.price
            
 
             var strikedprice = document.createElement('p');
@@ -341,10 +358,30 @@
             var cartbtn = document.createElement('button');
             cartbtn.innerText = 'Add to cart'
 
-            card.append(imge,name,Prprice,cartbtn);
+            // cartbtn.addEventListener('click',function())
 
+            card.append(imge,name,Prprice,cartbtn);
             document.querySelector('#container').append(card);
+
+            cartbtn.addEventListener('click',function(event){
+              var a = {
+                imag : ele.image_url,
+                name : ele.name,
+                price : ele.price
+              }
+              cart.push(a);
+
+              localStorage.setItem('cart',JSON.stringify(cart));
+              console.log(a);
+            })
+
+
+
+
+            
         })
+
+
 
     }
     

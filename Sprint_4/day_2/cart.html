@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cart</title>
+    <link rel="stylesheet" href="navbar.css">
+
+    <style>
+        #main{
+            width: 100%;
+            display: flex;
+
+        }
+        #container{
+            width: 70%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr ;
+            gap: 20px;
+            border: 1px solid black;
+            margin-top: 30px;
+            margin: auto;
+        }
+
+        #detail{
+            width: 50%;
+            border: 1px solid black;
+            margin: auto;
+        }
+
+
+
+        .card{
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            padding: 15px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <img src="https://content.shop4reebok.com/static/header/vector_logo_white_145x19_website.png" alt="">
+        <div id="buttons">
+            <h3><a href="womens.html">women</a> </h3>
+            <h3><a href="mens.html">Men</a></h3>
+            <h3><a href="\WEB_18\Sprint_4\Masai_login\signup.html">SignUp</a></h3>
+            <h3><a href="\WEB_18\Sprint_4\Masai_login\login.html">LogIn</a></h3>
+            <h3><a href="cart.html">cart</a></h3>
+        </div>
+    </div>
+    <div id="main"></div>
+        <div id="container">
+
+
+        </div>
+
+        <div id="detail">
+            <h1 id="totalitem"></h1>
+            <h1 id="totalprice"></h1>
+
+
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    var cartdata = JSON.parse(localStorage.getItem('cart'));
+
+    function display(data){
+        data.forEach(function(ele){
+            var card = document.createElement('div');
+            card.className = 'card';
+
+            var image = document.createElement('img');
+            image.setAttribute('src',ele.imag);
+
+            var name = document.createElement('p');
+            name.innerText = ele.name;
+
+            var price = document.createElement('p');
+            price.innerText = ele.price;
+
+            card.append(image,name,price);
+
+            document.querySelector('#container').append(card);
+
+        
+        })
+    }
+
+    display(cartdata)
+
+    var total_item = cartdata.length;
+    document.querySelector('#totalitem').innerText = "Total Items: "+String(total_item)
+
+    var total_price = cartdata.reduce(function(acc,ele){
+        return acc + ele.price;
+    },0)
+    document.querySelector('#totalprice').innerText ="Total Price"+ (total_price);
+
+
+</script>
