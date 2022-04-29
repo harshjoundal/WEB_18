@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="navbar.css">
+
+    <style>
+        select{
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        table,td,th{
+            border: 1px solid #ddd;
+            /* text-align: left; */
+        }
+
+        table{
+            border-collapse: collapse;
+            width: 70%;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        th,td{
+            padding: 15px;
+        }
+
+        tr>th{
+            background-color: black;
+            color:white;
+            font-size: 20px;
+        }
+        #bookmark{
+            cursor: pointer;
+        }
+        #bookmark:hover{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <h1><a href="index.html">Home</a></h1>
+        <h1><a href="applied_jobs.html">Applied Jobs</a> </h1>
+        <h1><a href="bookmark.html">Bookmarks</a> </h1>
+    </div>
+    <div id="filter">
+        <select name="sort name" id="sortnames" onChange='namesort()'>
+            <option value="">Sort By names</option>
+            <option value="asc">Ascending</option>
+            <option value="dec">Decending</option>
+        </select>
+
+        <select name="sortsalary" id="sortsalary" onchange="salarysort()" >
+            <option value="">Sort by salery</option>
+            <option value="asc">Low to High</option>
+            <option value="dec">High to Low</option>
+        </select>
+        
+        <select name="filterrole" id="filterrole" onchange="rolesort()">
+            <option value="">Filter By Role</option>
+            <option value="FSD">FSD</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+        </select>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Job applied</th>
+                <th>Salary Expected (LPA)</th>
+                <th>Add to bookmark</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    
+</body>
+</html>
+
+<script>
+
+    var data = JSON.parse(localStorage.getItem('data'));
+    var bookmarkData =JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+    function display(data){
+        if(data != null){
+            data.forEach(function(ele){
+                var row = document.createElement('tr');
+
+                var name = document.createElement('td');
+                name.innerText = ele.name;
+
+                var email = document.createElement('td');
+                email.innerText = ele.email;
+
+                var role = document.createElement('td');
+                role.innerText = ele.role;
+
+                var salary = document.createElement('td');
+                salary.innerText = ele.salary;
+
+                ///////////////////////////////////////
+                //adding bookmark button
+                var bookmark = document.createElement('td');
+                bookmark.innerText ='Bookmark';
+                bookmark.setAttribute('id','bookmark');
+                
+                bookmark.addEventListener('click',function(event){
+                    bookmarkData.push(ele);
+                    // console.log(bookmarkData);
+                    localStorage.setItem('bookmarks',JSON.stringify(bookmarkData));
+
+                })
+                /////////////////////////////////////////////
+
+                row.append(name,email,role,salary,bookmark);
+
+                document.querySelector('tbody').append(row);
+            })
+        }    
+    }
+
+    display(data)
+    //SORT BY NAME
+    function namesort(){
+        var data = JSON.parse(localStorage.getItem('data'));
+        
+
+        var value = document.querySelector('#sortnames').value;
+
+        console.log(value);
+
+        if(value == 'asc'){
+            document.querySelector('tbody').innerHTML ="";
+            var sdata = data.sort(function(a,b){
+                var a = a.name.toUpperCase();
+                var b = b.name.toUpperCase();
+
+
+                if(a > b){
+                    return 1;
+                }
+                else if(a < b){
+                    return -1;
+                }
+                else{
+                    return 0;
+                }
+
+            })
+            display(sdata);
+
+
+        }
+        else if(value == 'dec'){
+            document.querySelector('tbody').innerHTML = "";
+            var Sdata = data.sort(function(a,b){
+                var a = a.name.toUpperCase();
+                var b = b.name.toUpperCase();
+                if(b > a){
+                    return 1;
+                }
+                else if(b < a){
+                    return -1;
+                }
+                else{
+                    return 0;
+                }
+            })
+            display(Sdata) 
+
+        }
+        else{
+            document.querySelector('tbody').innerHTML = "";
+            display(data)
+
+
+        }
+        
+    }
+
+    //SORT BY SALARY
+    function salarysort(){
+        var value = document.querySelector('#sortsalary').value;
+        // console.log(value);
+
+        if(value == 'asc'){
+            document.querySelector("tbody").innerHTML="";
+            var sdata = data.sort(function(a,b){
+                if(a.salary - b.salary > 0){
+                    return 1;
+                }
+                else if(b.salary - a.salary >0){
+                    return -1;
+                }
+                else{
+                    return 0;
+                }
+            })
+            display(sdata);
+
+        }
+        else if(value =='dec'){
+            document.querySelector("tbody").innerHTML="";
+            var sdata = data.sort(function(a,b){
+                if(a.salary - b.salary > 0){
+                    return -1;
+                }
+                else if(b.salary - a.salary >0){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            })
+            display(sdata);
+
+        }
+        else{
+            display(data);
+        }
+    }
+
+    //SORT BY ROLE
+    function rolesort(){
+        var value = document.querySelector('#filterrole').value;
+        if(value == 'FSD'){
+            document.querySelector('tbody').innerHTML='';
+            var sdata = data.filter(function(ele,i){
+                return ele.role == 'FSD'
+            })
+            // console.log(sdata);
+            display(sdata);
+        }
+        else if(value == 'Frontend'){
+            document.querySelector('tbody').innerHTML='';
+            var sdata = data.filter(function(ele,i){
+                return ele.role == 'Frontend'
+            })
+            // console.log(sdata);
+            display(sdata);
+
+        }
+        else if(value == 'Backend'){
+            document.querySelector('tbody').innerHTML='';
+            var sdata = data.filter(function(ele,i){
+                return ele.role == 'Backend'
+            })
+            // console.log(sdata);
+            display(sdata);
+            
+        }
+    }
+
+
+</script>

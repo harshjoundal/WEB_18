@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="navbar.css">
+
+    <style>
+        img{
+            display: block;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        #container{
+            width: 35%;
+            padding: 15px 35px;
+            margin: auto;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;            
+            margin-top: 40px;
+            box-sizing: border-box;
+            border-radius: 10px;
+
+        }
+        h1{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            font-size: 24px;
+        }
+        input,select{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid rgb(205, 203, 203);
+            border-radius: 8px;
+       
+        }
+        input::placeholder{
+            color:rgb(205, 203, 203);
+            font-weight: 200;
+        }
+        p{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 6px;
+            margin-top: 30px;
+
+        }
+        #policy{
+            text-align: center;
+            font-size: 13px;
+        }
+
+        button{
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 30px;
+            border: 1px solid rgb(205, 203, 203);
+            border-radius: 8px;
+
+        }
+        button:hover{
+            background-color: black;
+            color: white;
+        }
+        h2{
+            text-align: center;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <h1><a href="index.html">Home</a></h1>
+        <h1><a href="applied_jobs.html">Applied Jobs</a> </h1>
+        <h1><a href="bookmark.html">Bookmarks</a> </h1>
+    </div>
+
+    <img src="https://sso.masaischool.com/brand_dark.svg" alt="masai">
+    <div id="container">
+        <h2>Enter your application details</h2>
+        <p>Name</p>
+        <input id="name" type="text" placeholder=" Enter your name">
+        <p>Email</p>
+        <input id="email" type="email" placeholder="Enter Email">
+        <!-- <p>Password</p>
+        <input id="password" type="password" placeholder="Enter password"> -->
+
+        <p>Role</p>
+        <select name="role" id="role">
+            <option value="FSD">FSD</option>
+            <option value="Backend">Backend</option>
+            <option value="Frontend">Frontend</option>
+        </select>
+
+        <p>Salery Expected</p>
+        <input id="salary" type="text" placeholder="Expected Salary">
+
+        <!-- <p id="policy">By signing up, I accept the Masai School <a href="https://masaischool.com/terms" target="_blank">Terms of service</a> and acknowledge the <a href="https://masaischool.com/privacy" target="_blank">Privacy policy</a></p> -->
+
+        <button>SUBMIT</button>
+
+        <!-- <p style="text-align: center;margin-top: 50px;margin-bottom: 20px;">Already have an account? <a href="login.html">Sign In</a></p> -->
+
+    </div>
+
+
+    
+</body>
+</html>
+
+<script>
+    var data =JSON.parse(localStorage.getItem('data')) || [];
+
+    var submit_data = document.querySelector('button').addEventListener('click',function(event){
+        var a = {
+            name: document.querySelector('#name').value,
+            email: document.querySelector('#email').value,
+            role : document.querySelector('#role').value,
+            salary: document.querySelector('#salary').value
+        }
+
+        data.push(a);
+        localStorage.setItem('data',JSON.stringify(data));
+        console.log(a);
+    })
+
+</script>

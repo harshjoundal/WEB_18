@@ -1,0 +1,22 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+#navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 10px;
+    background-color: black;
+}
+#navbar>h1{
+    font-size: 40px;
+    color: white;
+}
+a{
+    color:white;
+    text-decoration: none;
+    cursor: pointer;
+
+}
