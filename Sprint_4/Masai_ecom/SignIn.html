@@ -94,29 +94,32 @@
 
 <script>
     var credentials = JSON.parse(localStorage.getItem('credentials'));
-    console.log(credentials);
+    // console.log(credentials);
     
-    var loginData =[];
     var btn = document.querySelector('button');
     btn.addEventListener('click',function(event){
         var email = document.querySelector('#email').value;
         var pass = document.querySelector('#password').value;
+        
+        var loginData =[];
 
 
-        var username
         var success = false;
         credentials.forEach(function(ele){
             var e = ele.email;
             var p = ele.password;
-            username = ele.name;
+            var username = ele.name;
             if(e == email && p == pass){
                 success = true;
+                loginData.push(ele.name);
+
             }
 
         })
         // console.log(success);
         if(success == true){
-            loginData.push(email,pass,username);
+            loginData.push(email,pass);
+            console.log(loginData);
             localStorage.setItem('loginData',JSON.stringify(loginData));
             alert('Login Successful!!')
             window.location.href = 'womens.html'
