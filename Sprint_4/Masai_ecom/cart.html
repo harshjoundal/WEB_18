@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="navbar.css">
+
+
+    <style>
+        #allcontent{
+
+            /* border: 1px solid black; */
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        
+        #container{
+            width: 60%;
+            margin-top: 40px;
+            
+        }
+        .product{
+            width: 100%;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;            display: flex;
+            margin-bottom: 20px;
+            
+
+            
+        }
+        .image{
+            width: 30%;
+            margin-right: 20px;
+
+        }
+        .details{
+            display: flex;
+            flex-direction: column;
+            /* align-items: center; */
+            justify-content: flex-start;
+        }
+
+        .price{
+            margin-top: -10px;
+        }
+        
+        #cartInfo{
+            width: 30%;
+            border: 1px solid black;
+            padding: 30px;
+            /* height: auto; */
+
+
+        }
+        #cartInfo>p{
+            line-height: 50px;
+        }
+
+        #Buy{
+            display: block;
+            margin-top: 50px;
+            margin-left: 35%;
+
+            padding: 10px 30px;
+            font-size: 30px;
+            background-color: green;
+            color: white;
+            border-radius: 10px;
+        
+            
+        }
+        #Buy:hover{
+            background-color: black;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="navbar">
+        <!-- <img src="https://content.shop4reebok.com/static/header/vector_logo_white_145x19_website.png" alt=""> -->
+        <div id="buttons">
+            <h3><a href="womens.html">women</a> </h3>
+            <h3><a href="mens.html">Men</a></h3>
+            <!-- <h3><a href="\WEB_18\Sprint_4\Masai_login\signup.html">SignUp</a></h3> -->
+            <h3 id="User"></h3>
+            <!-- <h3><a href="\WEB_18\Sprint_4\Masai_login\login.html">LogIn</a></h3> -->
+            <h3><a href="cart.html">cart</a></h3>
+        </div>
+    </div>
+    
+
+    <div id="allcontent">
+        <div id="container">
+            <!-- <div class="product">
+                <div class="image">
+                    <img src="https://content.shop4reebok.com/static/Product-EX4296/reebok_EX4296_1.jpg.plp" alt="">
+
+
+                </div>
+                <div class="details">
+                    <p>MEN'S REEBOK RUNNING ROADMAP SHOES</p>
+                    <p>Price : </p>
+                    <p class="price">800</p>
+                    <button>Remove</button>
+                </div>
+
+            </div> -->
+
+        </div>
+
+        
+        <div id="cartInfo">
+            <h1>Price Details:</h1>
+            <hr>
+
+            <div id="price">
+                <p style="display: inline">Price(</p>
+                
+                <p id="NoItem" style="display: inline;"></p>
+                <p style="display: inline;">Items)</p>
+                <p style="display: inline"> :-</p>
+                <p style="display: inline">Rs.</p>
+                <p class="totalPrice" style="display: inline" ></p> 
+            </div>
+
+            <p style="display: inline">Delivery Chages :- </p>
+            <p style="display: inline">Free</p>
+            
+            <hr>
+
+            <h2 style="display: inline">Total Amount :</h2>
+            <h2 style="display: inline">Rs.</h2>
+            <h2 id="total" style="display: inline" ></h2>
+
+            <button id="Buy"> Buy Now</button>
+    
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    
+</body>
+</html>
+<script>
+    
+    //////navbar user name
+    var user = JSON.parse(localStorage.getItem('loginData')); ///////////// Displaying username
+    // console.log(user[2]);
+    document.querySelector('#User').innerText= user[2];
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    var data = JSON.parse(localStorage.getItem('cart'));
+    // console.log(data);
+
+    function display(data){
+        data.forEach(function(ele,i){
+            var product = document.createElement('div');
+            product.className ='product';
+
+            var image = document.createElement('div');
+            image.className ='image';
+            var img = document.createElement('img');
+            img.src = ele.image_url;
+            image.append(img);
+
+            
+            
+            var details = document.createElement('div');
+            details.className = 'details';
+
+            var name = document.createElement('p');
+            name.innerText = ele.name;
+
+            var pricetext = document.createElement('p');
+            pricetext.innerText ='Price :';
+
+            var price = document.createElement('p');
+            price.className='price';
+            price.innerText = ele.price;
+
+            var btn = document.createElement('button');
+            btn.innerText = 'Remove';
+            btn.addEventListener('click',function(event){
+                data.splice(ele,1);
+                localStorage.setItem('cart',JSON.stringify(data));
+                window.location.reload()
+            })
+
+            details.append(name,pricetext,price,btn);
+
+            product.append(image,details);
+            document.querySelector('#container').append(product);
+
+
+
+
+        })
+    }
+
+    console.log(data);
+    display(data);
+
+    var totalitem = data.length;
+    document.querySelector('#NoItem').innerText = totalitem;
+
+
+    var total = 0;
+    data.forEach(function(ele){
+        total = total + Number(ele.price);
+    })
+    // console.log(total);
+    document.querySelector('.totalPrice').innerText = total;
+    document.querySelector('#total').innerText = total;
+
+
+
+</script>

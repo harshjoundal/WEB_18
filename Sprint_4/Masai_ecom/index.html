@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signUp</title>
+    <style>
+        img{
+            display: block;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        #container{
+            width: 35%;
+            padding: 15px 35px;
+            margin: auto;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;            
+            margin-top: 40px;
+            box-sizing: border-box;
+            border-radius: 10px;
+
+        }
+        h1{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            font-size: 24px;
+        }
+        input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid rgb(205, 203, 203);
+            border-radius: 8px;
+       
+        }
+        input::placeholder{
+            color:rgb(205, 203, 203);
+            font-weight: 200;
+        }
+        p{
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 6px;
+            margin-top: 30px;
+
+        }
+        #policy{
+            text-align: center;
+            font-size: 13px;
+        }
+
+        button{
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 30px;
+            border: 1px solid rgb(205, 203, 203);
+            border-radius: 8px;
+
+        }
+        button:hover{
+            background-color: black;
+            color: white;
+        }
+        a{
+            color: blue;
+
+        }
+    </style>
+</head>
+<body>
+    <img src="https://sso.masaischool.com/brand_dark.svg" alt="masai">
+    <h1>Masai E-com</h1>
+    <div id="container">
+        <h1>Sign Up</h1>
+        <p>Full name</p>
+        <input id="name" type="text" placeholder=" Enter your full name">
+        <p>Email</p>
+        <input id="email" type="email" placeholder="Enter Email">
+        <p>Password</p>
+        <input id="password" type="password" placeholder="Enter password">
+        <p id="policy">By signing up, I accept the Masai School <a href="https://masaischool.com/terms" target="_blank">Terms of service</a> and acknowledge the <a href="https://masaischool.com/privacy" target="_blank">Privacy policy</a></p>
+
+        <button>SIGN UP</button>
+
+        <p style="text-align: center;margin-top: 50px;margin-bottom: 20px;">Already have an account? <a href="SignIn.html">Sign In</a></p>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+    var credentials = JSON.parse(localStorage.getItem('credentials')) || [];
+
+    var signup = document.querySelector('button');
+    signup.addEventListener('click',function(event){
+           
+        var cdata = {
+            name : document.querySelector('#name').value,
+            email : document.querySelector('#email').value,
+            password : document.querySelector('#password').value 
+        }
+
+
+        var email_exist = false;
+        credentials.forEach(function(ele){
+            if(ele.email == cdata.email){
+                email_exist = true;
+            }
+        })
+
+        if(email_exist==false){
+            credentials.push(cdata);
+            localStorage.setItem('credentials',JSON.stringify(credentials));
+            alert('SignUp Successful!!!')
+            window.location.href="SignIn.html";
+        }
+        else{
+            alert('Person with same email Id already exist!!');
+            window.location.reload()
+        }
+
+
+             
+    })
+</script>
