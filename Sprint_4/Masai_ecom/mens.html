@@ -338,13 +338,35 @@
             var op = document.createElement('p');
             op.innerText = ele.strikedoffprice;
 
+            
+            
             var cartadd = document.createElement('button');
             cartadd.innerText ='Add to cart'
+            
             cartadd.addEventListener('click',function(event){
-                cart.push(ele);
-                localStorage.setItem('cart',JSON.stringify(cart))
-                // console.log(cart)
-                alert('Product added to cart')
+                var exist = false;
+                var existnames = cart.map(function(ele){
+                    return ele.name;
+                })
+                
+                if(existnames.includes(ele.name)){
+                    exist = true;
+                }
+                
+
+                if(exist == false){
+
+                    cart.push(ele);
+                    localStorage.setItem('cart',JSON.stringify(cart))
+                    // console.log(cart)
+                    alert('Product added to cart')
+                }
+                else{
+                    alert('Product already exist in cart')
+                }
+                
+
+                
             })
 
 
