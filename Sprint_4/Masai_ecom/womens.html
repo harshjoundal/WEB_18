@@ -39,6 +39,12 @@
         button{
             margin-left: 50%;
         }
+        #pricesort,#namesort{
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 8px;
+
+        }
     </style>
 </head>
 <body>
@@ -54,6 +60,19 @@
         </div>
     </div>
     
+    <div id="sort">
+      <select name="sort by price" id="pricesort" onChange ="pricesort()">
+          <option value="">Sort by price</option>
+          <option value="lowtohigh">Low to high</option>
+          <option value="hightolow">high to low</option>
+      </select>
+
+      <select name="sort by name" id="namesort">
+          <option value="">Sort by name</option>
+          <option value="asc">Ascending</option>
+          <option value="dec">Descending</option>
+      </select>
+    </div>
     
     <h1>Women</h1>
     <div id="container">
@@ -580,6 +599,111 @@
     var user = JSON.parse(localStorage.getItem('loginData')); ///////////// Displaying username
     // console.log(user[2]);
     document.querySelector('#User').innerText= user[0];
+
+
+
+    ///name sort
+
+    var name_sort = document.querySelector('#namesort');
+    
+    name_sort.addEventListener('change',function(event){
+        var data = womensData;
+        var value = event.target.value;
+        document.querySelector('#container').innerHTML="";
+
+        console.log(value)
+        if(value == 'asc'){
+            data.sort(function(a,b){
+                var a = a.name;
+                var b = b.name;
+        
+                if(a > b){
+                    return 1;
+                }
+                else if(a < b){
+                    return -1;
+                }
+                else{
+                    return 0;
+                }
+            })
+            
+        }
+        else if(value == 'dec'){
+            data.sort(function(a,b){
+                var a = a.name;
+                var b = b.name;
+        
+                if(a > b){
+                    return -1;
+                }
+                else if(a < b){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            })
+          
+
+        }
+        document.querySelector('#container').innerHTML="";
+        display(data);
+
+       
+        // console.log(data); 
+    })
+
+
+    //price sort
+
+    function pricesort(){
+      var value = document.querySelector('#pricesort').value;
+      console.log(value);
+      if(value == 'lowtohigh'){
+        document.querySelector('#container').innerHTML = '';
+
+        var sdata = womensData.sort(function(a,b){
+          if(a.price - b.price > 0){
+            return 1;
+          }
+          else if(a.price - b.price < 0){
+            return -1;
+          }
+          else{
+            return 0;
+          }
+        })
+        display(sdata);
+      }
+      else if(value == 'hightolow'){
+        document.querySelector('#container').innerHTML = '';
+
+        var sdata = womensData.sort(function(a,b){
+          if(a.price - b.price > 0){
+            return -1;
+          }
+          else if(a.price - b.price < 0){
+            return 1;
+          }
+          else{
+            return 0;
+          }
+        })
+        display(sdata);
+
+      }
+      else{
+        document.querySelector('#container').innerHTML = '';
+        
+        display(womensData);
+      }
+    }
+
+
+
+    
+    
 
 
     
